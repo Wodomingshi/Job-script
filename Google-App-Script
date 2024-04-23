@@ -1,0 +1,32 @@
+function insertJobDetails() {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  
+  // Example of structured data pasted as a single string. 
+  // You would replace the content of `dataString` with your actual pasted data.
+  var dataString = `Company: Tokio Marine HCC
+Company Mission: Standing still is not an option in the insurance world. TMHCC is a leading Specialty Insurer, focused on empowering people, delivering on commitments, and growing with creative and innovative solutions for clients.
+Markets Serviced: Specialty insurance markets worldwide with deep expertise in chosen lines of business.
+Role Title: Data Scientist
+Role Description: Research and build models to transform the market-leading Property & Casualty underwriting business in a collaborative environment with Software Engineers and Actuaries.
+Key Duties: Develop interactive risk models, perform exploratory analysis, build models & develop interactive dashboards, embed models & tools into production-grade systems, develop portfolio-level risk metrics, optimize the flow of value to the business.
+Education Requirements: Degree in a quantitative or mathematical field.
+Experience Requirements: 3+ years experience building insurance risk models.
+Skills Requirements: Proficiency with Python data science stack (NumPy, Pandas, SciPy, Jupyter), data pipeline tooling (SQL, dbt, Snowflake, AWS Glue, Airflow, AWS Step Functions, AWS Lambda).
+Knowledge Requirements: Geospatial analysis, RMS data structures, visualization and statistical libraries (Plotly, D3, Datashader), reproducible research methods & automated report generation tools (Quarto, R Markdown, Pandoc).
+Role's Pay: Competitive salary and employee benefit package.
+Role Location: City of London, United Kingdom.
+Remote/Hybrid/Onsite: Hybrid - 3 days in the office, 2 days working from home.
+`;
+
+  // Splitting the dataString into an array of lines
+  var dataLines = dataString.split('\n');
+  
+  // Extracting data from each line
+  var rowData = dataLines.map(function(line) {
+    return line.split(': ')[1]; // Splits each line at ': ' and returns the part after it
+  });
+  
+  // Find the last row with content to append data below existing data
+  var lastRow = sheet.getLastRow();
+  sheet.getRange(lastRow + 1, 1, 1, rowData.length).setValues([rowData]);
+}
